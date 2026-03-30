@@ -1,0 +1,230 @@
+/* ═══════════ PILEGGI IMMOBILIARE — CUSTOM STYLES ═══════════ */
+/* Solo animazioni e stili che Tailwind non gestisce nativamente */
+
+/* ═══════════ SCROLLBAR ═══════════ */
+html {
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: #999 #080808;
+}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #080808; }
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #ccc, #fff);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: #e8e8e8; }
+
+/* ═══════════ CUSTOM CURSOR ═══════════ */
+.cursor-dot {
+    width: 8px; height: 8px;
+    background: white;
+    border-radius: 50%;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 99999;
+    transition: transform 0.1s ease;
+    mix-blend-mode: difference;
+}
+.cursor-ring {
+    width: 40px; height: 40px;
+    border: 1px solid white;
+    border-radius: 50%;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 99998;
+    transition: width 0.3s, height 0.3s, border-color 0.3s, transform 0.15s ease;
+    transform: translate(-50%, -50%);
+}
+.cursor-ring.hovering {
+    width: 60px; height: 60px;
+    border-color: #e8e8e8;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* ═══════════ GRAIN OVERLAY ═══════════ */
+.grain {
+    position: fixed; inset: 0;
+    z-index: 50;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+}
+
+/* ═══════════ LOADING SCREEN ═══════════ */
+.loader {
+    position: fixed; inset: 0;
+    background: #080808;
+    z-index: 99999;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+.loader.hidden { opacity: 0; visibility: hidden; }
+.loader-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: white;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: loaderReveal 1s ease forwards 0.3s;
+}
+.loader-bar {
+    width: 200px; height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin-top: 2rem;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: loaderReveal 0.6s ease forwards 0.6s;
+}
+.loader-bar::after {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; height: 100%;
+    width: 0;
+    background: white;
+    animation: loaderFill 2s ease forwards 0.8s;
+}
+.loader-counter {
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: #666;
+    margin-top: 1rem;
+    opacity: 0;
+    animation: loaderReveal 0.6s ease forwards 0.8s;
+}
+
+@keyframes loaderReveal { to { opacity: 1; transform: translateY(0); } }
+@keyframes loaderFill { to { width: 100%; } }
+
+/* ═══════════ HERO ANIMATIONS ═══════════ */
+.hero-title .word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(80px) rotateX(40deg);
+}
+.hero-tag, .hero-sub, .hero-cta {
+    opacity: 0;
+    transform: translateY(20px);
+}
+.hero-line {
+    width: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, white, transparent);
+    margin: 1.5rem auto;
+}
+
+/* ═══════════ SCROLL REVEAL ═══════════ */
+.reveal { opacity: 0; transform: translateY(50px); transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ═══════════ MARQUEE ═══════════ */
+.marquee-track {
+    display: flex;
+    animation: marquee 30s linear infinite;
+    width: max-content;
+}
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* ═══════════ GALLERY DRAG ═══════════ */
+.gallery-horizontal { scrollbar-width: none; }
+.gallery-horizontal::-webkit-scrollbar { display: none; }
+.gallery-horizontal.dragging { cursor: grabbing; }
+
+/* ═══════════ HERO SCROLL INDICATOR ═══════════ */
+.hero-scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, white, transparent);
+    animation: scrollPulse 2s ease infinite;
+}
+@keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
+    50% { opacity: 1; transform: scaleY(1); }
+}
+@keyframes fadeInUp {
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ═══════════ GALLERY HOVER REVEAL ═══════════ */
+.gallery-item-reveal {
+    transform: translateY(100%);
+    transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.gallery-item:hover .gallery-item-reveal {
+    transform: translateY(0);
+}
+.gallery-item-img {
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.gallery-item:hover .gallery-item-img {
+    filter: grayscale(0%) brightness(1) !important;
+    transform: scale(1.05);
+}
+
+/* ═══════════ SLIDE ARROW ═══════════ */
+@keyframes slideArrow {
+    0%, 100% { transform: translateX(0); opacity: 0.4; }
+    50% { transform: translateX(8px); opacity: 1; }
+}
+
+/* ═══════════ BUTTON HOVER FILL ═══════════ */
+.btn-outline {
+    position: relative;
+    overflow: hidden;
+}
+.btn-outline::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: white;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s ease;
+    z-index: -1;
+}
+.btn-outline:hover { color: #0F0F0F !important; }
+.btn-outline:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* ═══════════ STAT CARD TOP LINE ═══════════ */
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, white, transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s ease;
+}
+.stat-card:hover::before { transform: scaleX(1); }
+
+/* ═══════════ METODO TOP LINE ═══════════ */
+.metodo-line::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 1px; height: 120px;
+    background: linear-gradient(to bottom, white, transparent);
+}
+
+/* ═══════════ MOBILE: hide custom cursor ═══════════ */
+@media (max-width: 768px) {
+    body { cursor: auto !important; }
+    .cursor-dot, .cursor-ring { display: none !important; }
+    .gallery-item-reveal { display: none; }
+}
