@@ -73,14 +73,6 @@ function animateHero() {
         }, 1200);
     }
 
-    const cta = document.querySelector('.hero-cta');
-    if (cta) {
-        setTimeout(() => {
-            cta.style.transition = 'all 1s ease';
-            cta.style.opacity = '1';
-            cta.style.transform = 'translateY(0)';
-        }, 1500);
-    }
 }
 
 /* ═══════════ SCROLL REVEAL ═══════════ */

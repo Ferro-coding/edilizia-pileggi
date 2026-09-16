@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collabora con Noi | Pileggi Immobiliare</title>
+    <meta name="description" content="Lavora con Pileggi Immobiliare - Invia la tua candidatura.">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Josefin+Sans:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        charcoal: '#0F0F0F',
+                        'charcoal-deep': '#080808',
+                        accent: '#FFFFFF',
+                        dim: '#666666',
+                    },
+                    fontFamily: {
+                        heading: ['"Cormorant Garamond"', 'serif'],
+                        body: ['"Josefin Sans"', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-charcoal text-gray-400 font-body font-light overflow-x-hidden cursor-none">
+
+<!-- GRAIN OVERLAY -->
+<div class="grain"></div>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<!-- ═══════════ NAVIGATION ═══════════ -->
+<nav id="nav" class="fixed top-0 left-0 right-0 z-[9000] flex items-center justify-between px-6 py-5 md:px-12 transition-all duration-500 bg-charcoal/90 backdrop-blur-[20px] border-b border-white/5">
+    <a href="index.html" class="no-underline">
+        <img src="assets/logo/logo_bianco_clean.svg" alt="Pileggi Immobiliare" class="h-10 md:h-12 w-auto">
+    </a>
+    <a href="index.html" class="text-white/70 no-underline text-[0.72rem] tracking-[0.25em] uppercase font-normal hover:text-white transition-colors">&larr; Torna al sito</a>
+</nav>
+
+<!-- ═══════════ COLLABORA CON NOI ═══════════ -->
+<section class="pt-36 md:pt-44 pb-24 md:pb-40 px-6 md:px-12" id="collabora">
+    <div class="max-w-6xl mx-auto">
+        <div class="reveal flex items-center gap-6 text-[0.65rem] tracking-[0.5em] uppercase text-white mb-6">
+            <span class="w-10 h-px bg-white"></span> Collabora con Noi
+        </div>
+        <h2 class="reveal font-heading text-4xl md:text-5xl lg:text-6xl font-light text-white leading-tight mb-12" style="transition-delay:0.1s">
+            Entra nel <em class="italic text-white">team.</em><br>Costruisci il tuo futuro.
+        </h2>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+            <div>
+                <p class="reveal text-base leading-8 text-gray-400 mb-6" style="transition-delay:0.2s">
+                    Cerchiamo persone che condividano la nostra passione
+                    per l'eccellenza. In Pileggi Immobiliare, ogni membro del team e un
+                    protagonista: dal cantiere alla sala riunioni, il tuo contributo
+                    conta.
+                </p>
+                <p class="reveal text-base leading-8 text-gray-400 mb-8" style="transition-delay:0.3s">
+                    Offriamo un ambiente di lavoro stimolante, formazione continua
+                    e la possibilita di lavorare su progetti ambiziosi.
+                </p>
+                <div class="reveal flex flex-wrap gap-3" style="transition-delay:0.4s">
+                    <span class="px-5 py-2 border border-white/20 text-[0.72rem] tracking-wider uppercase text-white transition-colors hover:bg-white/10">Formazione Continua</span>
+                    <span class="px-5 py-2 border border-white/20 text-[0.72rem] tracking-wider uppercase text-white transition-colors hover:bg-white/10">Crescita Professionale</span>
+                    <span class="px-5 py-2 border border-white/20 text-[0.72rem] tracking-wider uppercase text-white transition-colors hover:bg-white/10">Ambiente Meritocratico</span>
+                </div>
+            </div>
+            <form id="collabora-form" class="flex flex-col gap-4">
+                <div class="reveal grid grid-cols-1 sm:grid-cols-2 gap-4" style="transition-delay:0.15s">
+                    <input name="name" type="text" placeholder="Nome e Cognome" required class="w-full px-5 py-4 bg-white/[0.03] border border-white/[0.08] text-white font-body text-sm font-light outline-none transition-colors focus:border-white placeholder:text-gray-500">
+                    <input name="phone" type="tel" placeholder="Telefono" required class="w-full px-5 py-4 bg-white/[0.03] border border-white/[0.08] text-white font-body text-sm font-light outline-none transition-colors focus:border-white placeholder:text-gray-500">
+                </div>
+                <div class="reveal" style="transition-delay:0.2s">
+                    <input name="email" type="email" placeholder="Email" required class="w-full px-5 py-4 bg-white/[0.03] border border-white/[0.08] text-white font-body text-sm font-light outline-none transition-colors focus:border-white placeholder:text-gray-500">
+                </div>
+                <div class="reveal" style="transition-delay:0.25s">
+                    <textarea name="message" rows="4" placeholder="Messaggio / Presentazione..." required class="w-full px-5 py-4 bg-white/[0.03] border border-white/[0.08] text-white font-body text-sm font-light outline-none transition-colors focus:border-white placeholder:text-gray-500 resize-none"></textarea>
+                </div>
+                <div class="reveal" style="transition-delay:0.3s">
+                    <input type="file" accept=".pdf,.doc,.docx" class="text-gray-500 text-sm">
+                    <small class="block mt-1 text-gray-500 text-xs">Allega il tuo CV (PDF, DOC)</small>
+                </div>
+                <input name="_hp" style="display:none" tabindex="-1" autocomplete="off">
+                <input name="subject" type="hidden" value="Candidatura - Collabora con Noi">
+                <button type="submit" class="reveal btn-outline self-start px-10 py-4 bg-transparent border border-white text-white font-body text-[0.72rem] tracking-[0.3em] uppercase font-medium cursor-none transition-all duration-500" style="transition-delay:0.35s">
+                    Invia Candidatura
+                </button>
+                <div id="collabora-form-status" class="text-sm mt-2"></div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 py-16">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-10 mb-12">
+            <div class="text-center md:text-left">
+                <img src="assets/logo/logo_bianco_clean.svg" alt="Pileggi Immobiliare" class="h-14 w-auto mx-auto md:mx-0">
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="https://instagram.com" target="_blank" rel="noopener" class="group w-12 h-12 border border-white/10 rounded-full flex items-center justify-center hover:border-white/40 hover:bg-white/5 transition-all duration-300" aria-label="Instagram">
+                    <svg class="w-5 h-5 text-gray-500 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                    </svg>
+                </a>
+                <a href="https://facebook.com" target="_blank" rel="noopener" class="group w-12 h-12 border border-white/10 rounded-full flex items-center justify-center hover:border-white/40 hover:bg-white/5 transition-all duration-300" aria-label="Facebook">
+                    <svg class="w-5 h-5 text-gray-500 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <div class="w-full h-px bg-white/5 mb-8"></div>
+        <div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
+            <div class="text-[0.65rem] text-white/20 tracking-[0.2em] uppercase text-center sm:text-left">&copy; 2026 Pileggi Immobiliare<br class="sm:hidden"> Tutti i diritti riservati</div>
+            <div class="flex gap-6">
+                <a href="index.html" class="text-white/20 no-underline text-[0.65rem] tracking-wider uppercase hover:text-white/50 transition-colors">Home</a>
+                <a href="index.html#contatti" class="text-white/20 no-underline text-[0.65rem] tracking-wider uppercase hover:text-white/50 transition-colors">Contatti</a>
+            </div>
+        </div>
+        <div class="mt-6 pb-6 text-center">
+            <span class="text-[0.65rem] text-white/30 tracking-[0.15em]">Designed &amp; developed by <a href="https://refingo.it" target="_blank" rel="noopener" class="text-white/40 no-underline hover:text-white/60 transition-colors">Refingo</a></span>
+        </div>
+    </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/gateway.js"></script>
+
+</body>
+</html>

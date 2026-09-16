@@ -72,6 +72,8 @@ html {
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: white;
+    text-align: center;
+    padding: 0 1.5rem;
     opacity: 0;
     transform: translateY(20px);
     animation: loaderReveal 1s ease forwards 0.3s;
@@ -212,15 +214,6 @@ html {
 }
 .stat-card:hover::before { transform: scaleX(1); }
 
-/* ═══════════ METODO TOP LINE ═══════════ */
-.metodo-line::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 50%;
-    transform: translateX(-50%);
-    width: 1px; height: 120px;
-    background: linear-gradient(to bottom, white, transparent);
-}
 
 /* ═══════════ MOBILE: hide custom cursor ═══════════ */
 @media (max-width: 768px) {
