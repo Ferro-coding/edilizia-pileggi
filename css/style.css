@@ -1,19 +1,37 @@
 /* ═══════════ PILEGGI IMMOBILIARE — CUSTOM STYLES ═══════════ */
 /* Solo animazioni e stili che Tailwind non gestisce nativamente */
 
+/* ═══════════ SMOOTH SCROLL (LENIS) ═══════════ */
+/* Quando Lenis è attivo aggiunge .lenis a <html>: lo scroll nativo va disattivato
+   per non entrare in conflitto con l'interpolazione JS. Senza Lenis (o con
+   prefers-reduced-motion) resta lo smooth scroll nativo definito sotto. */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* Offset per la navbar fissa quando si salta a una sezione (fallback senza Lenis) */
+section[id] { scroll-margin-top: 90px; }
+
+/* ═══════════ SELEZIONE TESTO ═══════════ */
+/* Sabbia #d4c4aa (stesso accento della striscia) su testo carboncino:
+   contrasto alto e leggibile sia sul fondo scuro che sulle immagini. */
+::selection { background: #d4c4aa; color: #0F0F0F; text-shadow: none; }
+::-moz-selection { background: #d4c4aa; color: #0F0F0F; text-shadow: none; }
+
 /* ═══════════ SCROLLBAR ═══════════ */
 html {
     scroll-behavior: smooth;
     scrollbar-width: thin;
-    scrollbar-color: #999 #080808;
+    scrollbar-color: #d4c4aa #080808;
 }
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #080808; }
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(to bottom, #ccc, #fff);
+    background: linear-gradient(to bottom, #bda98a, #d4c4aa);
     border-radius: 3px;
 }
-::-webkit-scrollbar-thumb:hover { background: #e8e8e8; }
+::-webkit-scrollbar-thumb:hover { background: #e2d6c1; }
 
 /* ═══════════ CUSTOM CURSOR ═══════════ */
 .cursor-dot {

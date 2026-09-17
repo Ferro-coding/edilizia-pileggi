@@ -1,12 +1,41 @@
 /* ═══════════ PILEGGI IMMOBILIARE — MAIN JS ═══════════ */
 
+/* ═══════════ SMOOTH SCROLL INERZIALE (LENIS) ═══════════ */
+/* Un solo "motore" di scroll per tutto il sito: se Lenis non si carica (CDN giù)
+   o l'utente ha attivato la riduzione del movimento, si torna automaticamente
+   allo scroll nativo senza rompere nulla. */
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let lenis = null;
+
+if (window.Lenis && !reduceMotion) {
+    lenis = new Lenis({
+        duration: 1.15,
+        easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+        wheelMultiplier: 0.9,
+        touchMultiplier: 1.8,
+        infinite: false
+    });
+    const lenisRaf = time => { lenis.raf(time); requestAnimationFrame(lenisRaf); };
+    requestAnimationFrame(lenisRaf);
+}
+
+/* Blocca/sblocca lo scroll (loader, menu mobile) parlando sia a Lenis sia al body */
+function lockScroll(locked) {
+    if (lenis) locked ? lenis.stop() : lenis.start();
+    document.body.style.overflow = locked ? 'hidden' : '';
+}
+
 /* ═══════════ LOADER ═══════════ */
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        document.getElementById('loader').classList.add('hidden');
-        animateHero();
-    }, 2800);
-});
+const loader = document.getElementById('loader');
+if (loader) {
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            loader.classList.add('hidden');
+            animateHero();
+        }, 2800);
+    });
+}
 
 /* ═══════════ CUSTOM CURSOR ═══════════ */
 const dot = document.querySelector('.cursor-dot');
@@ -115,32 +144,51 @@ const counterObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.3 });
 counters.forEach(c => counterObserver.observe(c));
 
-/* ═══════════ NAV SCROLL ═══════════ */
-window.addEventListener('scroll', () => {
-    const nav = document.getElementById('nav');
-    if (window.scrollY > 80) {
-        nav.classList.add('nav-scrolled');
-    } else {
-        nav.classList.remove('nav-scrolled');
+/* ═══════════ SCROLL: NAVBAR + PARALLAX HERO ═══════════ */
+/* Un unico handler throttlato su requestAnimationFrame: con Lenis lo scroll
+   cambia a ogni frame, quindi due listener separati raddoppierebbero il lavoro. */
+const nav = document.getElementById('nav');
+const heroVideo = document.querySelector('#home video');
+let scrollTicking = false;
+
+function onScroll() {
+    const y = window.scrollY;
+
+    if (nav) nav.classList.toggle('nav-scrolled', y > 80);
+
+    if (heroVideo && y < window.innerHeight) {
+        heroVideo.style.transform =
+            `scale(${1 + y * 0.0003}) translateY(${y * 0.3}px)`;
     }
-});
+
+    scrollTicking = false;
+}
+
+window.addEventListener('scroll', () => {
+    if (scrollTicking) return;
+    scrollTicking = true;
+    requestAnimationFrame(onScroll);
+}, { passive: true });
+onScroll();
 
 /* ═══════════ HAMBURGER ═══════════ */
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('hamburger-active');
-    const isOpen = mobileMenu.classList.toggle('!opacity-100');
-    mobileMenu.classList.toggle('!visible');
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-});
-mobileMenu.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-        hamburger.classList.remove('hamburger-active');
-        mobileMenu.classList.remove('!opacity-100', '!visible');
-        document.body.style.overflow = '';
+if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('hamburger-active');
+        const isOpen = mobileMenu.classList.toggle('!opacity-100');
+        mobileMenu.classList.toggle('!visible');
+        lockScroll(isOpen);
     });
-});
+    mobileMenu.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+            hamburger.classList.remove('hamburger-active');
+            mobileMenu.classList.remove('!opacity-100', '!visible');
+            lockScroll(false);
+        });
+    });
+}
 
 /* ═══════════ GALLERY DRAG SCROLL ═══════════ */
 const gallery = document.getElementById('galleryScroll');
@@ -160,23 +208,31 @@ if (gallery) {
         const x = e.pageX - gallery.offsetLeft;
         gallery.scrollLeft = scrollLeft - (x - startX) * 1.5;
     });
+
+    /* Lenis intercetta la rotella per tutta la pagina: qui reintroduciamo lo
+       swipe orizzontale da trackpad sulla galleria (il verticale resta alla pagina). */
+    gallery.addEventListener('wheel', e => {
+        if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+            gallery.scrollLeft += e.deltaX;
+        }
+    }, { passive: true });
 }
 
-/* ═══════════ SMOOTH SCROLL ═══════════ */
+/* ═══════════ ANCORE (salto alle sezioni) ═══════════ */
+const NAV_OFFSET = 80; /* altezza navbar fissa in stato "scrolled" */
+
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
+        const hash = this.getAttribute('href');
+        if (hash === '#' || hash.length < 2) return;
+        const target = document.querySelector(hash);
+        if (!target) return;
+
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
+        if (lenis) {
+            lenis.scrollTo(target, { offset: -NAV_OFFSET, duration: 1.4 });
+        } else {
             target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     });
-});
-
-/* ═══════════ PARALLAX HERO ═══════════ */
-window.addEventListener('scroll', () => {
-    const hero = document.querySelector('.hero video');
-    if (hero && window.scrollY < window.innerHeight) {
-        hero.style.transform = `scale(${1 + window.scrollY * 0.0003}) translateY(${window.scrollY * 0.3}px)`;
-    }
 });
