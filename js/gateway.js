@@ -1,9 +1,9 @@
 /* ═══════════ PILEGGI IMMOBILIARE — EMAIL GATEWAY ═══════════ */
-/* Integrazione con il gateway Flask su PythonAnywhere */
+/* Il gateway e' servito in reverse proxy sullo stesso dominio del sito (vedi Nginx),
+   quindi GATEWAY_URL resta vuoto per usare percorsi relativi e non serve CORS. */
 
 (function () {
-    // ⚠️ CONFIGURA questi due valori:
-    var GATEWAY_URL = "https://TUOUSERNAME.pythonanywhere.com"; // URL del gateway
+    var GATEWAY_URL = ""; // stesso dominio del sito, path relativo
     var SITE_KEY = "pileggi"; // Chiave sito (mappa al destinatario nel gateway)
 
     var forms = [
